@@ -1,0 +1,18 @@
+.row
+    .span12
+        .hero-unit
+          h1 SearchBox.io Sample Node.js Application.
+          p This example illustrates basic search features of SearchBox.io (ElasticSearch as service).
+
+          p Sample application is using
+            a(href='https://github.com/phillro/node-elasticsearch-client')= ' elasticsearchclient '
+            = 'Node.js ElasticSearch client to integrate with SearchBox.io.'
+
+          p To create initial index and sample data click
+            a(href='/index')= ' Create Sample Index&Data! '
+            = '(2 sample documents will be created.)'
+
+          p Type "*" or "cloud" to search box and hit enter for sample search results.
+
+        if result
+          p= result
