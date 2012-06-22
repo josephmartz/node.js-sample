@@ -20,6 +20,6 @@ var connectionString = url.parse('http://localhost:9200')
 
 This sample can be deployed to Heroku with no change.
 
-* Install SearchBox ElasticSearch Addon(click Create Sample Index&Data! for initial index and data).
+* Install SearchBox ElasticSearch Addon
 
-Deploy sample application and experience real time search.
+Deploy sample application (click Create Sample Index&Data! for initial index and data) and experience real time search.
