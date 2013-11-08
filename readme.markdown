@@ -1,8 +1,8 @@
-## SearchBox.io Sample Node.js Application.
+## Searchly Sample Node.js Application.
 
-This example illustrates basic search features of SearchBox.io ([ElasticSearch](http://www.elasticsearch.org) as service).
+This example illustrates basic search features of Searchly.
 
-Sample application is using [elasticsearchclient](https://github.com/phillro/node-elasticsearch-client) Node.js ElasticSearch client to integrate with SearchBox.io.
+Sample application is using [elasticsearchclient](https://github.com/phillro/node-elasticsearch-client) Node.js [ElasticSearch](http://www.elasticsearch.org) client to integrate with Searchly.
 
 To create initial index and sample data click Create Sample Index&Data! (2 sample documents will be created.) at index page.
 
@@ -15,11 +15,14 @@ To run example in your local environment with a local ElasticSearch instance, ch
 
 var connectionString = url.parse('http://localhost:9200')
 
-
 ## Heroku Deployment
 
 This sample can be deployed to Heroku with no change.
 
-* Install SearchBox ElasticSearch Addon
+* Install SearchBox/Searchly Addon
+* Deploy sample application
 
-Deploy sample application and experience real time search.
+## CloudFoundry Deployment
+
+* Install Searchly Addon
+* Deploy sample application

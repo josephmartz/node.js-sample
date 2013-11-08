@@ -21,6 +21,7 @@ if (process.env.SEARCHBOX_URL) {
 } else {
     // Generic
     connectionString = url.parse('http://site:yourkey@api.searchbox.io');
+    //var connectionString = url.parse('http://localhost:9200');
 }
 
 var serverOptions = {
