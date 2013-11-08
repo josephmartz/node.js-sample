@@ -7,9 +7,7 @@
             thead
                 tr
                     th Name
-                    th Text
             tbody
                 each document in result.hits.hits
                   tr
-                    td= document._source.name
-                    td= document._source.text
+                    td= document._source

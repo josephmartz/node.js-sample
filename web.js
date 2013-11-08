@@ -8,13 +8,20 @@ var express = require('express'),
 
 var app = module.exports = express.createServer();
 
-// SearchBox.io ElasticSearch configuration with elasticsearchclient
+// Searchly ElasticSearch configuration with elasticsearchclient
 
-// Local
-//var connectionString = url.parse(process.env.SEARCHBOX_URL || 'http://api.searchbox.io/api-key/..........');
+var connectionString;
 
-// Heroku
-var connectionString = url.parse(process.env.SEARCHBOX_URL);
+if (process.env.SEARCHBOX_URL) {
+    // Heroku
+    connectionString = url.parse(process.env.SEARCHBOX_URL);
+} else if (process.env.VCAP_SERVICES) {
+    // CloudFoundry
+    connectionString = url.parse(JSON.parse(process.env.VCAP_SERVICES)['searchly-n/a'][0]['credentials']['uri']);
+} else {
+    // Generic
+    connectionString = url.parse('http://site:yourkey@api.searchbox.io');
+}
 
 var serverOptions = {
     host:connectionString.hostname,
@@ -98,12 +105,12 @@ app.get('/index', function (req, res) {
 app.get('/search', function (req, res) {
 
     var qryObj = {
-        "query":{
-            "query_string":{
-                "query":req.query.q
+        "query": {
+            "multi_match" : {
+                "query" : req.query.q,
+                "fields" : [ "name", "text" ]
             }
-        }
-    };
+        };
 
     elasticSearchClient.search(_index, _type, qryObj)
         .on('data',
@@ -112,7 +119,7 @@ app.get('/search', function (req, res) {
         }).on('error', function (error) {
             res.render('search', { result:error })
         })
-        .exec()
+        .exec();
 });
 
 app.get('/about', function (req, res) {
