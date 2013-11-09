@@ -1,0 +1,15 @@
+---
+applications:
+- name: nodejs-sample
+  memory: 256M
+  instances: 1
+  host: nodejs-sample
+  domain: cfapps.io
+  path: .
+  services:
+    searchly-69bcf:
+      label: searchly
+      provider: searchly
+      version: n/a
+      plan: starter
+  command: node web.js

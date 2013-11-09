@@ -4,9 +4,12 @@
 
 var express = require('express'),
     ElasticSearchClient = require('elasticsearchclient'),
-    url = require('url');
-
-var app = module.exports = express.createServer();
+    url = require('url'),
+    express = require('express'),
+    http = require('http'),
+    app = express(),
+    server = http.createServer(app),
+    path = require('path');
 
 // Searchly ElasticSearch configuration with elasticsearchclient
 
@@ -24,9 +27,15 @@ if (process.env.SEARCHBOX_URL) {
     //var connectionString = url.parse('http://localhost:9200');
 }
 
+console.info(connectionString);
+
 var serverOptions = {
     host:connectionString.hostname,
-    path:connectionString.pathname
+    path:connectionString.pathname,
+    auth: {
+        username: connectionString.auth.split(':')[0],
+        password: connectionString.auth.split(':')[1]
+  }
 };
 
 var elasticSearchClient = new ElasticSearchClient(serverOptions);
@@ -43,7 +52,7 @@ app.configure(function () {
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(app.router);
-    app.use(express.static(__dirname + '/public'));
+    app.use(express.static(path.join(__dirname, 'public')));
 });
 
 app.configure('development', function () {
@@ -111,7 +120,8 @@ app.get('/search', function (req, res) {
                 "query" : req.query.q,
                 "fields" : [ "name", "text" ]
             }
-        };
+        }
+    }
 
     elasticSearchClient.search(_index, _type, qryObj)
         .on('data',
@@ -127,8 +137,6 @@ app.get('/about', function (req, res) {
     res.render('about');
 });
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 4000;
 
-app.listen(port, function () {
-    console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
-});
+server.listen(port);

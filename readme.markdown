@@ -6,7 +6,7 @@ Sample application is using [elasticsearchclient](https://github.com/phillro/nod
 
 To create initial index and sample data click Create Sample Index&Data! (2 sample documents will be created.) at index page.
 
-Type "*" or "cloud" to search box and hit enter for sample search results.
+Type "technology" or "cloud" to search box and hit enter for sample search results.
 
 
 ## Local Setup
